@@ -119,7 +119,9 @@ class Bot:
                     )
                     continue
 
-                points_post_author_flair = points_post.author_flair_text
+                # TODO: UPDATE: Use flair css class instead of flair text
+                #points_post_author_flair = points_post.author_flair_text
+                points_post_author_flair = points_post.author_flair_css_class
                 points_post_house = reddit_utils.convert_flair_to_house(points_post_author_flair)
                 # TODO: Should we still add them to the sheet?
                 if points_post_house is None:
@@ -144,6 +146,6 @@ class Bot:
 
 
 if __name__ == '__main__':
-    load_dotenv()
+    load_dotenv(override=True)
     bot = Bot()
     bot.scrape_comments()

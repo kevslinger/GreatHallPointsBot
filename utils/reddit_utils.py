@@ -23,19 +23,29 @@ def convert_flair_to_house(flair_text):
     with the crest (:Gryff:, :Puff:, :Claw:, :Slyth:)"""
     if flair_text is None:
         return None
-    # Remove case sensitivity
-    flair_lower = flair_text.lower()
-    # TODO: Could just be a for loop
-    if constants.GRYFF.lower() in flair_lower:
+    if constants.GRYFF_CSS_CLASS in flair_text:
         return constants.GRYFFINDOR
-    elif constants.PUFF.lower() in flair_lower:
+    elif constants.PUFF_CSS_CLASS in flair_text:
         return constants.HUFFLEPUFF
-    elif constants.CLAW.lower() in flair_lower:
+    elif constants.CLAW_CSS_CLASS in flair_text:
         return constants.RAVENCLAW
-    elif constants.SLYTH.lower() in flair_lower:
+    elif constants.SLYTH_CSS_CLASS in flair_text:
         return constants.SLYTHERIN
     else:
-        return None  # flair_text
+        return '?'
+    # Remove case sensitivity
+    #flair_lower = flair_text.lower()
+    # TODO: Could just be a for loop
+    #if constants.GRYFF.lower() in flair_lower:
+    #    return constants.GRYFFINDOR
+    #elif constants.PUFF.lower() in flair_lower:
+    #    return constants.HUFFLEPUFF
+    #elif constants.CLAW.lower() in flair_lower:
+    #    return constants.RAVENCLAW
+    #elif constants.SLYTH.lower() in flair_lower:
+    #    return constants.SLYTHERIN
+    #else:
+    #    return None  # flair_text
 
 
 def get_points_post(reddit, parent_id):

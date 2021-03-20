@@ -21,12 +21,16 @@ COLUMNS = [TIMESTAMP, ID, AWARDER, AWARDER_HOUSE, AWARDEE, AWARDEE_HOUSE, LINK, 
 
 GRYFFINDOR = 'Gryffindor'
 GRYFF = 'Gryff'
+GRYFF_CSS_CLASS = 'GR'
 HUFFLEPUFF = 'Hufflepuff'
 PUFF = 'Puff'
+PUFF_CSS_CLASS = 'HF'
 RAVENCLAW = 'Ravenclaw'
 CLAW = 'Claw'
+CLAW_CSS_CLASS = 'RV'
 SLYTHERIN = 'Slytherin'
 SLYTH = 'Slyth'
+SLYTH_CSS_CLASS = 'SL'
 
 ####################
 # PRAW Reddit text #
