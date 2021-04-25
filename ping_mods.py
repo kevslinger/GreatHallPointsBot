@@ -2,6 +2,8 @@ from utils import reddit_utils, google_utils, constants
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+from pytz import timezone
+
 
 
 def main():
@@ -23,5 +25,12 @@ def ping_mods(sheet, reddit):
 
 
 if __name__ == '__main__':
+
+    current_day = datetime.now(timezone('US/Eastern')).strftime('%A')
+    if current_day != constants.PING_MODS_DAY:
+        print(f"Today is {current_day} but I only want to run on {constants.PING_MODS_DAY}")
+        exit(0)
+
+        
     load_dotenv(override=True)
     main()

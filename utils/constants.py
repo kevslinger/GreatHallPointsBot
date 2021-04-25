@@ -56,3 +56,9 @@ BOT_ENDING = f"\n\n****\n\n*I am a bot. Beep boop. Have questions? Ask {KEV}*"
 
 JSON_PARAMS = ["type", "project_id", "private_key_id", "private_key", "client_email", "client_id", "auth_uri",
                "token_uri", "auth_provider_x509_cert_url", "client_x509_cert_url"]
+
+#######################
+## Heroku Scheduling ##
+#######################
+
+PING_MODS_DAY = 'Sunday'
