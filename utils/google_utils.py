@@ -7,8 +7,13 @@ from datetime import datetime
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-def convert_time(time):
-    """Convert string in year/month/day hour:minute:second format to datetime object"""
+def get_formatted_time():
+    """Get time and format it to be human readable"""
+    return datetime.strftime(datetime.now(), '%B %d, %Y %H:%M:%S')
+
+
+def convert_reddit_timestamp(time):
+    """Convert from unix time to human-readable"""
     return datetime.utcfromtimestamp(int(time)).strftime('%Y-%m-%d %H:%M:%S')
 
 
@@ -28,17 +33,22 @@ def create_gspread_client():
     return gspread.authorize(creds)
 
 
-def update_df(df, timestamp, idx, author_name, author_house,
-              points_post_author, points_post_house, link):
-    """Function to add a row of the DataFrame"""
+def update_df(df: pd.DataFrame, timestamp: str, idx: str, author_name: str, author_house: str,
+              points_post_author: str, points_post_house: str, link: str, mod: bool):
+    """Function to add a row of the DataFrame
+    :param df: (pd.DataFrame)"""
     new_row = {constants.TIMESTAMP: [timestamp],
                constants.ID: [idx],
-               constants.AWARDER: [author_name],
-               constants.AWARDER_HOUSE: [author_house],
-               constants.AWARDEE: [points_post_author],
-               constants.AWARDEE_HOUSE: [points_post_house],
+               constants.SUGGESTED_BY: [author_name],
+               constants.SUGGESTED_BY_FLAIR: [author_house],
+               constants.RECIPIENT: [points_post_author],
+               constants.RECIPIENT_FLAIR: [points_post_house],
                constants.LINK: [link],
-               constants.AWARDED: ["No"]}
+               constants.AWARDED: ["No"], # This is for house points givers to change after they award
+               constants.MAYBE_IS_MOD: [str(mod)]}
     tmp_df = pd.DataFrame.from_dict(new_row)
     return pd.concat([df, tmp_df], ignore_index=True)
 
+
+def get_sheet_name():
+    return datetime.strftime(datetime.now(), '%B %Y')
