@@ -50,5 +50,11 @@ def update_df(df: pd.DataFrame, timestamp: str, idx: str, author_name: str, auth
     return pd.concat([df, tmp_df], ignore_index=True)
 
 
-def get_sheet_name():
+def get_current_tab_name():
+    """Our tab name will be <Month> <Year> e.g. March 2022"""
     return datetime.strftime(datetime.now(), '%B %Y')
+
+
+def get_specific_tab_url(sheet: gspread.Spreadsheet, tab_name: str):
+    """The url for a specific tab is the url of the sheet concatenated with /edit#gid=<tab_id>"""
+    return sheet.url + '/edit#gid=' + str(sheet.worksheet(tab_name).id)

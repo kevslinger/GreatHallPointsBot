@@ -49,10 +49,10 @@ class Bot:
         self.sheet = gsheets.open_by_key(sheet_key)
         try:
             # Current tab is month year (e.g. January 2022)
-            self.current_tab = self.sheet.worksheet(google_utils.get_sheet_name())
+            self.current_tab = self.sheet.worksheet(google_utils.get_current_tab_name())
         except WorksheetNotFound:
             # If the tab doesn't exist, create it.
-            self.current_tab = self.sheet.add_worksheet(google_utils.get_sheet_name(), 0, len(constants.COLUMNS))
+            self.current_tab = self.sheet.add_worksheet(google_utils.get_current_tab_name(), 0, len(constants.COLUMNS))
 
         self.submission_ids = pd.DataFrame(self.current_tab.get_all_records(), columns=constants.COLUMNS)[constants.ID]
         print(self.submission_ids)
@@ -63,12 +63,6 @@ class Bot:
         self.subreddit = self.reddit.subreddit('kevsTestSubreddit4')
         print(f"[ {google_utils.get_formatted_time()} ] Have connected to {self.subreddit.display_name}")
 
-        # TODO: Find right time to ping mods
-        # TODO: Figure out who to ping actually
-        #schedule.every().sunday.at("09:00").do(self.ping_mods)
-        # Testing
-        #schedule.every().day.at("16:30").do(self.ping_mods)
-        #schedule.every().thursday.at("22:20").do(self.ping_mods)
 
     def append_rows_to_sheet(self):
         """Move the current suggestions and append them to the google sheet"""
@@ -88,7 +82,7 @@ class Bot:
         for record in ping_list.get_all_records():
             self.reddit.redditor(record[constants.USERNAME]).message(
                 f'GreatHallPointsBot Weekly Update for {datetime.now().strftime("%B %d, %Y")}',
-                f"https://docs.google.com/spreadsheets/d/{os.getenv('SHEET_KEY')}/edit#gid=0"
+                google_utils.get_specific_tab_url(self.sheet, google_utils.get_current_tab_name())
             )
         print(f"[ {google_utils.get_formatted_time()} ] Pung the mods.")
 
