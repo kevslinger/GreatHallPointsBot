@@ -48,7 +48,7 @@ SUBREDDIT_NAME = "harrypotter"
 
 POINTS_PHRASE = "+"
 KEV = "u/kevslinger"
-PM_KEV = f"[PM u\/kevslinger](https://www.reddit.com/message/compose/?to=kevslinger)"
+PM_KEV = f"[PM u/kevslinger](https://www.reddit.com/message/compose/?to=kevslinger)"
 BOT_ENDING = f"\n\n****\n\n*I'm a bot. Do not reply to this message. Questions? [About me](https://www.github.com/kevslinger/GreatHallPointsBot) More Questions? {PM_KEV}*"
 
 ################

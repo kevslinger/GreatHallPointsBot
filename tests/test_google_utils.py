@@ -19,11 +19,6 @@ def test_convert_reddit_timestamp(time, correct):
     assert google_utils.convert_reddit_timestamp(time) == correct
 
 
-def test_create_gspread_client():
-    """Test that we can create a gspread client"""
-    assert isinstance(google_utils.create_gspread_client(), gspread.Client)
-
-
 # TODO
 def test_update_df():
     """Test that we properly concatenate to the df"""
