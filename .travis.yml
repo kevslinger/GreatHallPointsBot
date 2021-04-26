@@ -1,0 +1,16 @@
+language: python
+python:
+- '3.7'
+install:
+- pip install -r requirements.txt
+script:
+- python -m pytest
+notifications:
+  email: esslinger.k@northeastern.edu
+deploy:
+  provider: heroku
+  app: great-hall-points-bot
+  api_key:
+    secure: "k+/YxTzDuXzNE+tYR9L4oCvvkW7NBplS0eIkH1tsRprz46yyBOciIixOH7J1mRPvnoq20XkZXs6QctCRVxEvGLwF+LyJRk523xmzl+lGbkV2p52FIZUG+WM5O+FMh6u0/ZEKI0ImeGDH5oECkKTP+zNcIu2POGPJ4xd8C+5JsdwNlNXqsMowZabP1s7l7M86hoSRd2KipB+tbFlON6w/lBDFO1mjipPWZiFEp3KjGWeG3r/pOd91TNhcDNa3qlDGhN2PGVDj7LFxXcf0zYMzSdBAguwyfMXcLF61HbujygDy8JMRB1uPBA+c6nqtkHdWEQV0/lF5hV++D+VyUS2XCQ6Z6U8i3WwVZ4/jAxU4VJdhfY6df03Fzcug57Qzh5JgEdV7hc6ejYxhtrBOvhNrDfm/jfQq2EDabvUybTm/pPodu6Dan+rh0LGqcWjUIKoCvHAyNrqO+bY5arZkg4/liKZDl/Y3ZX2TRsNhRkQjnGn+XcjuyXFWkWuz/Z3tJsUVKUoRcDn+ST1Qxnt74v9Vpp35Q6ROJWyDjAEG6Hxf07RHsj35pNlq11ImRr7ZKnCye8Hai3j1608r7i+GRgHX8lyJGl33vR1x8tLMXy9MLDTJ8voxWSFm1bScnaFnF+Hey9eDugNoNDGfKS3/Fxu51vdoidtnNMWu7CjN2z327wE="
+  on:
+    repo: kevslinger/GreatHallPointsBot

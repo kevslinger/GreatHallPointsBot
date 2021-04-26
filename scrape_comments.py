@@ -52,7 +52,9 @@ class Bot:
             self.current_tab = self.sheet.worksheet(google_utils.get_current_tab_name())
         except WorksheetNotFound:
             # If the tab doesn't exist, create it.
-            self.current_tab = self.sheet.add_worksheet(google_utils.get_current_tab_name(), 0, len(constants.COLUMNS))
+            # args are the name of the tab, the number of rows/columns, and position in spreadsheet
+            # TODO: is it right to always make it the tab after the ping list tab?
+            self.current_tab = self.sheet.add_worksheet(google_utils.get_current_tab_name(), 0, len(constants.COLUMNS), 1)
 
         self.submission_ids = pd.DataFrame(self.current_tab.get_all_records(), columns=constants.COLUMNS)[constants.ID]
         print(self.submission_ids)
@@ -75,16 +77,6 @@ class Bot:
             self.df = pd.DataFrame(columns=constants.COLUMNS)
         else:
             print(f"[ {google_utils.get_formatted_time()} ] No new suggestions - did not append to sheet.")
-
-    def ping_mods(self):
-        """Send a message to the ping list with sheet link"""
-        ping_list = self.sheet.worksheet(constants.PINGLIST_SHEET)
-        for record in ping_list.get_all_records():
-            self.reddit.redditor(record[constants.USERNAME]).message(
-                f'GreatHallPointsBot Weekly Update for {datetime.now().strftime("%B %d, %Y")}',
-                google_utils.get_specific_tab_url(self.sheet, google_utils.get_current_tab_name())
-            )
-        print(f"[ {google_utils.get_formatted_time()} ] Pung the mods.")
 
     def scrape_comments(self):
         for comment in self.reddit.inbox.unread(mark_read=True):
@@ -127,17 +119,19 @@ class Bot:
                                                                         points_post_author_flair_text)
                 # TODO: Should we still add them to the sheet?
                 if points_post_house is None:
-                    comment.reply(f"Hey u/{points_post_author}, someone thinks your post is deserving of house points! "
-                                  f"Please set your house flair with a crest in order to be considered. "
-                                  f"Click [here](https://www.reddit.com/r/harrypotter/wiki/oursub#wiki_add_house_flair) "
+                    comment.reply(f"Hey u/{points_post_author}, u/{comment.author.name} thinks your post is deserving "
+                                  f"of house points! "
+                                  f"What is your Hogwarts house? Please set your house flair with a crest in order to "
+                                  f"be considered. Click "
+                                  f"[here](https://www.reddit.com/r/harrypotter/wiki/oursub#wiki_add_house_flair) "
                                   f"for instructions on how to do that. {constants.BOT_ENDING}")
                     print("User has not selected a house flair.")
                     # do something
                 else:
                     comment.reply(
-                        f"Hey u/{points_post_author}, someone thinks your post is deserving of house points, congrats! "
-                        f"We'll pass this along to our mod team. Even if you aren't awarded house points, thanks "
-                        f"for being an active member of our community! {constants.BOT_ENDING}")
+                        f"Hey u/{points_post_author}, u/{comment.author.name} thinks your post is deserving of house points, congrats! "
+                        f"We'll pass this along to our mod team. "
+                        f"{constants.BOT_ENDING}")
                 comment = comment.submission
                 # Add the new row to the dataframe.
                 # TODO: if this is slow, we can batch it by just doing this once at the very end.

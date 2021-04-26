@@ -31,6 +31,5 @@ if __name__ == '__main__':
         print(f"Today is {current_day} but I only want to run on {constants.PING_MODS_DAY}")
         exit(0)
 
-        
     load_dotenv(override=True)
     main()

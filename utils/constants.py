@@ -7,14 +7,14 @@ USERNAME = "Username"
 
 TIMESTAMP = "Timestamp"
 ID = "ID"
-SUGGESTED_BY = "Suggested By"
-SUGGESTED_BY_FLAIR = "Suggested By Flair"
+SUGGESTER = "Suggester"
+SUGGESTER_FLAIR = "Suggester Flair"
 RECIPIENT = "Recipient"
 RECIPIENT_FLAIR = "Recipient Flair"
 LINK = "Link"
 AWARDED = "Points Awarded?"
-MAYBE_IS_MOD = "Suggester is Mod?"
-COLUMNS = [TIMESTAMP, ID, SUGGESTED_BY, SUGGESTED_BY_FLAIR, RECIPIENT, RECIPIENT_FLAIR, LINK, AWARDED, MAYBE_IS_MOD]
+MAYBE_IS_MOD = "Mod Suggested"
+COLUMNS = [TIMESTAMP, ID, SUGGESTER, SUGGESTER_FLAIR, RECIPIENT, RECIPIENT_FLAIR, LINK, AWARDED, MAYBE_IS_MOD]
 
 ###################
 # Hogwarts Houses #
@@ -48,7 +48,8 @@ SUBREDDIT_NAME = "harrypotter"
 
 POINTS_PHRASE = "+"
 KEV = "u/kevslinger"
-BOT_ENDING = f"\n\n****\n\n*I am a bot. Beep boop. Have questions? Ask {KEV}*"
+PM_KEV = f"[PM u\/kevslinger](https://www.reddit.com/message/compose/?to=kevslinger)"
+BOT_ENDING = f"\n\n****\n\n*I'm a bot. Do not reply to this message. Questions? [About me](https://www.github.com/kevslinger/GreatHallPointsBot) More Questions? {PM_KEV}*"
 
 ################
 # Gspread ENV  #

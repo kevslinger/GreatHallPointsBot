@@ -4,7 +4,6 @@ import gspread
 import json
 import pandas as pd
 from datetime import datetime
-from oauth2client.service_account import ServiceAccountCredentials
 
 
 def get_formatted_time():
@@ -29,18 +28,25 @@ def create_gspread_client():
             json_creds[param] = os.getenv(param).replace('\"', '').replace('\\n', '\n')
         with open('client_secret.json', 'w') as f:
             json.dump(json_creds, f)
-    creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scopes)
-    return gspread.authorize(creds)
+    return gspread.service_account('client_secret.json', scopes)
 
 
 def update_df(df: pd.DataFrame, timestamp: str, idx: str, author_name: str, author_house: str,
               points_post_author: str, points_post_house: str, link: str, mod: bool):
     """Function to add a row of the DataFrame
-    :param df: (pd.DataFrame)"""
+    :param df: (pd.DataFrame) The current dataframe of suggestions
+    :param timestamp: (str) Timestamp for when the reddit comment happened
+    :param idx: (str) The ID of the reddit comment
+    :param author_name: (str) the suggester of points
+    :param author_house: (str) the house (flair) of the suggester
+    :param points_post_author: (str) the recipient of the suggestion
+    :param points_post_house: (str) the house (flair) of the recipient
+    :param link: (str) the link to the comment
+    :param mod: (str) whether or not the suggester is a mod"""
     new_row = {constants.TIMESTAMP: [timestamp],
                constants.ID: [idx],
-               constants.SUGGESTED_BY: [author_name],
-               constants.SUGGESTED_BY_FLAIR: [author_house],
+               constants.SUGGESTER: [author_name],
+               constants.SUGGESTER_FLAIR: [author_house],
                constants.RECIPIENT: [points_post_author],
                constants.RECIPIENT_FLAIR: [points_post_house],
                constants.LINK: [link],
